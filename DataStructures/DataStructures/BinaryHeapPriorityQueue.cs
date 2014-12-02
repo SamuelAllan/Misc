@@ -47,13 +47,13 @@ namespace DataStructures
                 item,
                 priority,
                 sequence);
-            heap.Enqueue(newItem);
+            heap.Add(newItem);
             sequence++;
         }
 
         public T Dequeue()
         {
-            return heap.Dequeue().item;
+            return heap.RemoveMin().item;
         }
 
         public int Count

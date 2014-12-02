@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DataStructures
 {
-    public class BinaryHeap<T> where T : IComparable<T>
+    public class BinaryHeap<T>: IEnumerable<T> where T : IComparable<T>
     {
         private const int initialCapacity = 64;
         private const int resizeMultiplier = 2;
@@ -19,7 +19,7 @@ namespace DataStructures
             items = new T[initialCapacity];
         }
 
-        public void Enqueue(T item)
+        public void Add(T item)
         {
             if (NeedToExpandItems())
             {
@@ -66,7 +66,7 @@ namespace DataStructures
             items[indexB] = temp;
         }
 
-        public T Dequeue()
+        public T RemoveMin()
         {
             if (count == 0)
                 throw new InvalidOperationException("Heap empty.");
@@ -128,6 +128,24 @@ namespace DataStructures
         public bool IsEmpty
         {
             get { return count == 0; }
+        }
+
+        public T Min()
+        {
+            if (count == 0)
+                throw new InvalidOperationException("Heap empty.");
+            return items[0];
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            for (int i = 0; i < count; i++)
+                yield return items[i];
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
