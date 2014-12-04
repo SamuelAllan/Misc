@@ -1,0 +1,8 @@
+DeployDB/bin
+DeployDB/obj
+DeployDB.csproj.user
+DeployDB.Tests/bin
+DeployDB.Tests/obj
+DeployDB.Tests/DeployDB.Tests.csproj.user
+DeployDB.suo
+DeployDB.v12.suo

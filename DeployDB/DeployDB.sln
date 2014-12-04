@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeployDB", "DeployDB\DeployDB.csproj", "{F70E9330-8F1D-4770-B4FA-94EE7179A5C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeployDB.Tests", "DeployDB.Tests\DeployDB.Tests.csproj", "{A4653287-D971-461A-9431-64575A6740AB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F70E9330-8F1D-4770-B4FA-94EE7179A5C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F70E9330-8F1D-4770-B4FA-94EE7179A5C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F70E9330-8F1D-4770-B4FA-94EE7179A5C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F70E9330-8F1D-4770-B4FA-94EE7179A5C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4653287-D971-461A-9431-64575A6740AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4653287-D971-461A-9431-64575A6740AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4653287-D971-461A-9431-64575A6740AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4653287-D971-461A-9431-64575A6740AB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
