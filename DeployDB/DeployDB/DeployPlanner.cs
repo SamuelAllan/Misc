@@ -35,10 +35,26 @@ namespace DeployDB
             List<string> plan = new List<string>();
             foreach (string script in scripts)
             {
-                if (!deployedScripts.Contains(script))
+                if (deployedScripts.Contains(script))
+                    deployedScripts.Remove(script);
+                else
                     plan.Add(script);
             }
+
+            CheckForUnknownDeployedScripts(deployedScripts);
             return plan;
+        }
+
+        private static void CheckForUnknownDeployedScripts(HashSet<string> deployedScripts)
+        {
+            if (deployedScripts.Count > 0)
+            {
+                StringBuilder message = new StringBuilder();
+                message.AppendLine("Cannot deploy - DB has scripts deployed to it that I don't know about:");
+                foreach (string script in deployedScripts.OrderBy(x => x))
+                    message.AppendLine("    " + script);
+                throw new Exception(message.ToString());
+            }
         }
     }
 }

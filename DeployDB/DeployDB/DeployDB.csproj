@@ -44,7 +44,7 @@
     <Compile Include="AppliedScript.cs" />
     <Compile Include="Clock.cs" />
     <Compile Include="Database.cs" />
-    <Compile Include="Deployer.cs" />
+    <Compile Include="DeployExecutor.cs" />
     <Compile Include="DeployPlanner.cs" />
     <Compile Include="Disk\DiskScriptStore.cs" />
     <Compile Include="Executor.cs" />

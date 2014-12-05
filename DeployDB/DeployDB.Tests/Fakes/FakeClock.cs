@@ -17,7 +17,7 @@ namespace DeployDB.Tests.Fakes
 
         public FakeClock(DateTime utcNow)
         {
-            this.utcNow = utcNow;
+            this.utcNow = new DateTime(utcNow.Ticks, DateTimeKind.Utc);
         }
 
         public DateTime UtcNow

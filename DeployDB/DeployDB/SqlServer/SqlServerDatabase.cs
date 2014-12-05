@@ -54,12 +54,7 @@ namespace DeployDB.SqlServer
                 DateTime deployed = raw.GetDateTime(SchemaHistorySql.GetAppliedScripts.Cols.Deployed);
                 DateTime? rolledBack = raw.GetNullableDatetime(SchemaHistorySql.GetAppliedScripts.Cols.RolledBack);
 
-                yield return new AppliedScript
-                {
-                    Name = name,
-                    DeployTime = deployed,
-                    RollbackTime = rolledBack,
-                };
+                yield return new AppliedScript(name, deployed, rolledBack);
             }
         }
 

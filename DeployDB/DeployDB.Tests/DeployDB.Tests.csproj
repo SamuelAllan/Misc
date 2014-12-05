@@ -43,9 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DeployerTest.cs" />
     <Compile Include="DeployPlannerTest.cs" />
     <Compile Include="Disk\DiskScriptStoreTest.cs" />
+    <Compile Include="DeployExecutorTest.cs" />
+    <Compile Include="Fakes\AutoIncrementClock.cs" />
     <Compile Include="Fakes\FakeClock.cs" />
     <Compile Include="Fakes\FakeDatabase.cs" />
     <Compile Include="Fakes\FakeFeedback.cs" />
