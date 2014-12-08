@@ -50,6 +50,8 @@
     <Compile Include="Executor.cs" />
     <Compile Include="Feedback.cs" />
     <Compile Include="Planner.cs" />
+    <Compile Include="RollbackExecutor.cs" />
+    <Compile Include="RollbackPlanner.cs" />
     <Compile Include="SchemaHistory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

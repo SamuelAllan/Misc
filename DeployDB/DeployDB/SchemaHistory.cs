@@ -6,6 +6,7 @@ namespace DeployDB
     {
         void EnsureHistoryDeployed();
         IEnumerable<AppliedScript> GetAppliedScripts();
+        AppliedScript GetDeployedScript(string name);
         void SaveAppliedScript(AppliedScript appliedScript);
     }
 }

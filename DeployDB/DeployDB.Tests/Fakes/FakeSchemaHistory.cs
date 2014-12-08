@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DeployDB.Tests.Fakes
 {
     public class FakeSchemaHistory: SchemaHistory
     {
-        private Dictionary<string, AppliedScript> appliedScripts = new Dictionary<string, AppliedScript>();
+        private List<AppliedScript> appliedScripts = new List<AppliedScript>();
         private List<AppliedScript> saved = new List<AppliedScript>();
         private HashSet<string> failSaving = new HashSet<string>();
 
@@ -16,12 +17,17 @@ namespace DeployDB.Tests.Fakes
 
         public IEnumerable<AppliedScript> GetAppliedScripts()
         {
-            return appliedScripts.Values;
+            return appliedScripts;
+        }
+
+        public AppliedScript GetDeployedScript(string name)
+        {
+            return appliedScripts.SingleOrDefault(x => x.Name == name && x.RollbackTime == null);
         }
 
         public void SaveAppliedScript(AppliedScript appliedScript)
         {
-            appliedScripts[appliedScript.Name] = appliedScript;
+            appliedScripts.Add(appliedScript);
             saved.Add(appliedScript);
 
             if (failSaving.Contains(appliedScript.Name))
@@ -37,7 +43,7 @@ namespace DeployDB.Tests.Fakes
         
         public void AddInitial(AppliedScript appliedScript)
         {
-            appliedScripts[appliedScript.Name] = appliedScript;
+            appliedScripts.Add(appliedScript);
         }
 
         public void FailSaving(string name)

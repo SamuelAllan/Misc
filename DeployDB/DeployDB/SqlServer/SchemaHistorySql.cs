@@ -32,6 +32,27 @@ from SchemaHistory.AppliedScript
             }
         }
 
+        public static class GetDeployedScript
+        {
+            public const string Sql = @"
+select Name, Deployed, RolledBack
+from SchemaHistory.AppliedScript
+where Name = @name and RolledBack is null
+";
+
+            public static class Cols
+            {
+                public const int Name = 0;
+                public const int Deployed = 1;
+                public const int RolledBack = 2;
+            }
+
+            public static class Args
+            {
+                public const string Name = "@name";
+            }
+        }
+
         public static class SaveAppliedScript
         {
             public const string Sql = @"

@@ -42,16 +42,36 @@ namespace DeployDB.SqlServer
 
         public IEnumerable<AppliedScript> GetAppliedScripts()
         {
-            SqlCommand create = new SqlCommand(SchemaHistorySql.GetAppliedScripts.Sql, connection);
-            var raw = create.ExecuteReader();
-
-            while(raw.Read())
+            SqlCommand get = new SqlCommand(SchemaHistorySql.GetAppliedScripts.Sql, connection);
+            using (var raw = get.ExecuteReader())
             {
-                string name = raw.GetString(SchemaHistorySql.GetAppliedScripts.Cols.Name);
-                DateTime deployed = raw.GetDateTime(SchemaHistorySql.GetAppliedScripts.Cols.Deployed);
-                DateTime? rolledBack = raw.GetNullableDatetime(SchemaHistorySql.GetAppliedScripts.Cols.RolledBack);
+                while (raw.Read())
+                {
+                    string name = raw.GetString(SchemaHistorySql.GetAppliedScripts.Cols.Name);
+                    DateTime deployed = raw.GetDateTime(SchemaHistorySql.GetAppliedScripts.Cols.Deployed);
+                    DateTime? rolledBack = raw.GetNullableDatetime(SchemaHistorySql.GetAppliedScripts.Cols.RolledBack);
 
-                yield return new AppliedScript(name, deployed, rolledBack);
+                    yield return new AppliedScript(name, deployed, rolledBack);
+                }
+            }
+        }
+
+        public AppliedScript GetDeployedScript(string name)
+        {
+            SqlCommand get = new SqlCommand(SchemaHistorySql.GetDeployedScript.Sql, connection);
+            get.Parameters.AddWithValue(SchemaHistorySql.SaveAppliedScript.Args.Name, name);
+            using (var raw = get.ExecuteReader())
+            {
+                if (!raw.Read())
+                    return null;
+                
+                DateTime deployed = raw.GetDateTime(SchemaHistorySql.GetDeployedScript.Cols.Deployed);
+                AppliedScript result = new AppliedScript(name, deployed, null);
+
+                if (raw.Read())
+                    throw new Exception("Multiple deployed scripts named: " + name + ".");
+
+                return result;
             }
         }
 

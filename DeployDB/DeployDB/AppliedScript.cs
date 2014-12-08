@@ -23,5 +23,13 @@ namespace DeployDB
                 throw new InvalidOperationException("Already rolled back!");
             RollbackTime = time;
         }
+
+        /// <summary>
+        /// Not for public display, but rather to make debuging nicer.
+        /// </summary>
+        public override string ToString()
+        {
+            return string.Format("[{0} {1:yyyy-MM-dd hh:mm:ss {2:yyyy-MM-dd hh:mm:ss}]", Name, DeployTime, RollbackTime);
+        }
     }
 }

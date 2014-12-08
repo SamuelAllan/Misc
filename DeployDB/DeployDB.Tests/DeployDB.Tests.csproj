@@ -53,6 +53,8 @@
     <Compile Include="Fakes\FakeSchemaHistory.cs" />
     <Compile Include="Fakes\FakeScriptStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RollbackExecutorTest.cs" />
+    <Compile Include="RollbackPlannerTest.cs" />
     <Compile Include="SqlServer\ScriptSplitterTest.cs" />
   </ItemGroup>
   <ItemGroup>
