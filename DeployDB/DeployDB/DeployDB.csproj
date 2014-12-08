@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="AppliedScript.cs" />
     <Compile Include="Clock.cs" />
+    <Compile Include="CmdLineArgs.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="DeployExecutor.cs" />
     <Compile Include="DeployPlanner.cs" />

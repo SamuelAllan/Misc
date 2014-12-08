@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CmdLineArgsTest.cs" />
     <Compile Include="DeployPlannerTest.cs" />
     <Compile Include="Disk\DiskScriptStoreTest.cs" />
     <Compile Include="DeployExecutorTest.cs" />
