@@ -44,7 +44,7 @@ namespace DeployDB.Tests
             AddScriptToStore("001");
             AddScriptToStore("002");
 
-            var plan = planner.MakePlan();
+            var plan = planner.MakePlan(null);
             CollectionAssert.AreEqual(new[] { "001", "002" }, plan);
         }
 
@@ -58,7 +58,7 @@ namespace DeployDB.Tests
 
             AddScriptToHistory("001");
 
-            var plan = planner.MakePlan();
+            var plan = planner.MakePlan(null);
             CollectionAssert.AreEqual(new[] { "002", "003", "004" }, plan);
         }
 
@@ -73,7 +73,7 @@ namespace DeployDB.Tests
             AddScriptToHistory("002");
             AddScriptToHistory("003");
 
-            var plan = planner.MakePlan();
+            var plan = planner.MakePlan(null);
             CollectionAssert.IsEmpty(plan);
         }
 
@@ -90,7 +90,7 @@ namespace DeployDB.Tests
             AddRolledBackScriptToHistory("002"); // Multiple rollbacks are a-okay
             AddRolledBackScriptToHistory("003");
 
-            var plan = planner.MakePlan();
+            var plan = planner.MakePlan(null);
             CollectionAssert.AreEqual(new[] { "002", "003", "004" }, plan);
         }
 
@@ -104,12 +104,12 @@ namespace DeployDB.Tests
             AddRolledBackScriptToHistory("001");  // Multiple rollbacks are a-okay
             AddScriptToHistory("001");
 
-            var plan = planner.MakePlan();
+            var plan = planner.MakePlan(null);
             CollectionAssert.AreEqual(new[] { "002" }, plan);
         }
 
         [Test, ExpectedException]
-        public void ExtraHistoryThatNotInScriptStore_ThrowBecauseThisDbHasUnknownState()
+        public void ExtraHistoryThatsNotInScriptStore_ThrowBecauseThisDbHasUnknownState()
         {
             AddScriptToStore("001");
             AddScriptToStore("002");
@@ -118,7 +118,64 @@ namespace DeployDB.Tests
             AddScriptToHistory("002");
             AddScriptToHistory("003");
 
-            planner.MakePlan();
+            planner.MakePlan(null);
+        }
+
+        [Test]
+        public void NonNullDestinationStopsPlanAfterDeployingDestination()
+        {
+            AddScriptToStore("001");
+            AddScriptToStore("002");
+            AddScriptToStore("003");
+
+            var plan = planner.MakePlan("002");
+            CollectionAssert.AreEqual(new[] { "001", "002" }, plan);
+        }
+
+        [Test]
+        public void NonNullDestinationSameAsLastScriptDeploysAll()
+        {
+            AddScriptToStore("001");
+            AddScriptToStore("002");
+            AddScriptToStore("003");
+
+            var plan = planner.MakePlan("003");
+            CollectionAssert.AreEqual(new[] { "001", "002", "003" }, plan);
+        }
+
+        [Test, ExpectedException]
+        public void DestinationIsAlreadyDeployedThrowsToProvideFeedback()
+        {
+            AddScriptToStore("001");
+            AddScriptToStore("002");
+            AddScriptToStore("003");
+
+            AddScriptToHistory("001");
+            AddScriptToHistory("002");
+
+            planner.MakePlan("002");
+        }
+
+        [Test, ExpectedException]
+        public void ThereIsNoScriptForDestinationThrows()
+        {
+            AddScriptToStore("001");
+            AddScriptToStore("002");
+            AddScriptToStore("003");
+
+            planner.MakePlan("ABC");
+        }
+
+        [Test, ExpectedException]
+        public void ThereIsNoScriptForDestinationAndAllOtherScriptsAreDeployedThrows()
+        {
+            AddScriptToStore("001");
+            AddScriptToStore("002");
+
+            AddScriptToHistory("001");
+            AddScriptToHistory("002");
+
+            planner.MakePlan("ABC");
         }
     }
 }
