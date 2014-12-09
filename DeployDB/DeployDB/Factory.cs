@@ -60,5 +60,10 @@ namespace DeployDB
         {
             return executor;
         }
+
+        public SchemaHistory GetSchemaHistory()
+        {
+            return schemaHistory;
+        }
     }
 }

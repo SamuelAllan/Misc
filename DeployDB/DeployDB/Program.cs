@@ -8,6 +8,7 @@ namespace DeployDB
         {
             Planner planner;
             Executor executor;
+            SchemaHistory schemaHistory;
             string destination;
             try
             {
@@ -15,6 +16,7 @@ namespace DeployDB
                 Factory factory = new Factory(cmdLineArgs);
                 planner = factory.GetPlanner();
                 executor = factory.GetExecutor();
+                schemaHistory = factory.GetSchemaHistory();
                 destination = cmdLineArgs.Destination;
             }
             catch(Exception e)
@@ -26,6 +28,7 @@ namespace DeployDB
 
             try
             {
+                schemaHistory.EnsureHistoryDeployed();
                 var plan = planner.MakePlan(destination);
                 executor.Execute(plan);
                 return 0;
