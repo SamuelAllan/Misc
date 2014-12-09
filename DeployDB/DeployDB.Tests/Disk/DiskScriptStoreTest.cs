@@ -157,6 +157,21 @@ namespace DeployDB.Tests.Disk
         }
 
         [Test]
+        public void GetAll_SubdirectoriesAreIgnoredForRollbacks()
+        {
+            CreateScript("001", "ABC");
+
+            string subDir = Path.Combine(scriptsDir, "hello");
+            Directory.CreateDirectory(subDir);
+
+            string filePath = Path.Combine(subDir, "001.rollback.sql");
+            File.WriteAllText(filePath, "DEF");
+
+            var result = store.Scripts.Single();
+            Assert.IsNull(result.Rollback);
+        }
+
+        [Test]
         public void Indexer_GetScriptsByName()
         {
             CreateScript("001", "ABC");

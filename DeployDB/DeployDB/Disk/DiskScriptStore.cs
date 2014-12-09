@@ -48,7 +48,7 @@ namespace DeployDB.Disk
         private static Dictionary<string, string> GetAllRollbacks(string dir)
         {
             Dictionary<string, string> result = new Dictionary<string, string>();
-            foreach (string file in Directory.EnumerateFiles(dir, rollbackFileSearchPattern, SearchOption.AllDirectories))
+            foreach (string file in Directory.EnumerateFiles(dir, rollbackFileSearchPattern, SearchOption.TopDirectoryOnly))
             {
                 string name = GetNameFromRollbackFilePath(file);
                 string script = File.ReadAllText(file);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace DeployDB.SqlServer
@@ -82,7 +83,11 @@ namespace DeployDB.SqlServer
                 SqlCommand save = new SqlCommand(SchemaHistorySql.SaveAppliedScript.Sql, connection, transaction);
                 save.Parameters.AddWithValue(SchemaHistorySql.SaveAppliedScript.Args.Name, appliedScript.Name);
                 save.Parameters.AddWithValue(SchemaHistorySql.SaveAppliedScript.Args.Deployed, appliedScript.DeployTime);
-                save.Parameters.AddWithValue(SchemaHistorySql.SaveAppliedScript.Args.RolledBack, appliedScript.RollbackTime);
+                save.Parameters.Add(SchemaHistorySql.SaveAppliedScript.Args.RolledBack, SqlDbType.DateTime);
+                if (appliedScript.RollbackTime.HasValue)
+                    save.Parameters[SchemaHistorySql.SaveAppliedScript.Args.RolledBack].Value = appliedScript.RollbackTime.Value;
+                else
+                    save.Parameters[SchemaHistorySql.SaveAppliedScript.Args.RolledBack].Value = DBNull.Value;
 
                 save.ExecuteNonQuery();
                 transaction.Commit();

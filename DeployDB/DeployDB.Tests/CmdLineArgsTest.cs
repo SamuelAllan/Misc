@@ -12,13 +12,11 @@ namespace DeployDB.Tests
     public class CmdLineArgsTest
     {
         [Test]
-        public void TryParse_BaselineDeploy()
+        public void Parse_BaselineDeploy()
         {
             string[] args = new[] { "deploy", "--destination", "001", "--db", "SqlServer", "db connection string", "--scripts", @"C:\Temp\scripts" };
-            CmdLineArgs result;
-            bool parsed = CmdLineArgs.TryParse(args, out result);
+            CmdLineArgs result = CmdLineArgs.Parse(args);
 
-            Assert.IsTrue(parsed, "parsed");
             Assert.IsNotNull(result, "result");
             Assert.AreEqual("deploy", result.Mode, "Mode");
             Assert.AreEqual("001", result.Destination, "Destination");
@@ -28,13 +26,11 @@ namespace DeployDB.Tests
         }
 
         [Test]
-        public void TryParse_DestinationNotSpecified()
+        public void Parse_DestinationNotSpecified()
         {
             string[] args = new[] { "deploy", "--db", "SqlServer", "db connection string", "--scripts", @"C:\Temp\scripts" };
-            CmdLineArgs result;
-            bool parsed = CmdLineArgs.TryParse(args, out result);
+            CmdLineArgs result = CmdLineArgs.Parse(args);
 
-            Assert.IsTrue(parsed, "parsed");
             Assert.IsNotNull(result, "result");
             Assert.AreEqual("deploy", result.Mode, "Mode");
             Assert.IsNull(result.Destination, "Destination");
@@ -44,13 +40,11 @@ namespace DeployDB.Tests
         }
 
         [Test]
-        public void TryParse_ArgsInADifferentOrder()
+        public void Parse_ArgsInADifferentOrder()
         {
             string[] args = new[] { "deploy", "--scripts", @"C:\Temp\scripts", "--db", "SqlServer", "db connection string", "--destination", "001", };
-            CmdLineArgs result;
-            bool parsed = CmdLineArgs.TryParse(args, out result);
+            CmdLineArgs result = CmdLineArgs.Parse(args);
 
-            Assert.IsTrue(parsed, "parsed");
             Assert.IsNotNull(result, "result");
             Assert.AreEqual("deploy", result.Mode, "Mode");
             Assert.AreEqual("001", result.Destination, "Destination");
@@ -60,13 +54,11 @@ namespace DeployDB.Tests
         }
 
         [Test]
-        public void TryParse_ArgNamesNotCaseSensitiveDeploy()
+        public void Parse_ArgNamesNotCaseSensitiveDeploy()
         {
             string[] args = new[] { "DEploY", "--DestINAtion", "aBcDEf", "--Db", "sQLseRVEr", "db connection string", "--SCRipTS", @"C:\Temp\scripts" };
-            CmdLineArgs result;
-            bool parsed = CmdLineArgs.TryParse(args, out result);
+            CmdLineArgs result = CmdLineArgs.Parse(args);
 
-            Assert.IsTrue(parsed, "parsed");
             Assert.IsNotNull(result, "result");
             Assert.AreEqual("DEploY", result.Mode, "Mode");
             Assert.AreEqual("aBcDEf", result.Destination, "Destination");
@@ -75,103 +67,67 @@ namespace DeployDB.Tests
             Assert.AreEqual(@"C:\Temp\scripts", result.ScriptLocation, "ScriptLocation");
         }
 
-        [Test]
-        public void TryParse_DbNotSpecified()
+        [Test, ExpectedException]
+        public void Parse_DbNotSpecified()
         {
             string[] args = new[] { "deploy", "--destination", "001", "--scripts", @"C:\Temp\scripts" };
-            CmdLineArgs result;
-            bool parsed = CmdLineArgs.TryParse(args, out result);
-
-            Assert.IsFalse(parsed, "parsed");
-            Assert.IsNull(result, "result");
+            CmdLineArgs.Parse(args);
         }
 
-        [Test]
-        public void TryParse_ScriptsNotSpecified()
+        [Test, ExpectedException]
+        public void Parse_ScriptsNotSpecified()
         {
             string[] args = new[] { "deploy", "--destination", "001", "--db", "SqlServer", "db connection string" };
-            CmdLineArgs result;
-            bool parsed = CmdLineArgs.TryParse(args, out result);
-
-            Assert.IsFalse(parsed, "parsed");
-            Assert.IsNull(result, "result");
+            CmdLineArgs.Parse(args);
         }
 
-        [Test]
-        public void TryParse_MissingDestinationArgument()
+        [Test, ExpectedException]
+        public void Parse_MissingDestinationArgument()
         {
             string[] args = new[] { "deploy", "--destination", "--db", "SqlServer", "db connection string", "--scripts", @"C:\Temp\scripts" };
-            CmdLineArgs result;
-            bool parsed = CmdLineArgs.TryParse(args, out result);
-
-            Assert.IsFalse(parsed, "parsed");
-            Assert.IsNull(result, "result");
+            CmdLineArgs.Parse(args);
         }
 
-        [Test]
-        public void TryParse_MissingDbTypeArgument()
+        [Test, ExpectedException]
+        public void Parse_MissingDbTypeArgument()
         {
             string[] args = new[] { "deploy", "--destination", "001", "--db", "db connection string", "--scripts", @"C:\Temp\scripts" };
-            CmdLineArgs result;
-            bool parsed = CmdLineArgs.TryParse(args, out result);
-
-            Assert.IsFalse(parsed, "parsed");
-            Assert.IsNull(result, "result");
+            CmdLineArgs.Parse(args);
         }
 
-        [Test]
-        public void TryParse_MissingDbConnectionStringArgument()
+        [Test, ExpectedException]
+        public void Parse_MissingDbConnectionStringArgument()
         {
             string[] args = new[] { "deploy", "--destination", "001", "--db", "SqlServer", "--scripts", @"C:\Temp\scripts" };
-            CmdLineArgs result;
-            bool parsed = CmdLineArgs.TryParse(args, out result);
-
-            Assert.IsFalse(parsed, "parsed");
-            Assert.IsNull(result, "result");
+            CmdLineArgs.Parse(args);
         }
 
-        [Test]
-        public void TryParse_MissingScriptLocationArgument()
+        [Test, ExpectedException]
+        public void Parse_MissingScriptLocationArgument()
         {
             string[] args = new[] { "deploy", "--destination", "001", "--db", "SqlServer", "db connection string", "--scripts" };
-            CmdLineArgs result;
-            bool parsed = CmdLineArgs.TryParse(args, out result);
-
-            Assert.IsFalse(parsed, "parsed");
-            Assert.IsNull(result, "result");
+            CmdLineArgs.Parse(args);
         }
 
-        [Test]
-        public void TryParse_DoubleDestination()
+        [Test, ExpectedException]
+        public void Parse_DoubleDestination()
         {
             string[] args = new[] { "deploy", "--destination", "001", "--db", "SqlServer", "db connection string", "--scripts", @"C:\Temp\scripts", "--destination", "002" };
-            CmdLineArgs result;
-            bool parsed = CmdLineArgs.TryParse(args, out result);
-
-            Assert.IsFalse(parsed, "parsed");
-            Assert.IsNull(result, "result");
+            CmdLineArgs.Parse(args);
         }
 
-        [Test]
-        public void TryParse_DoubleDb()
+        [Test, ExpectedException]
+        public void Parse_DoubleDb()
         {
             string[] args = new[] { "deploy", "--destination", "001", "--db", "SqlServer", "db connection string", "--scripts", @"C:\Temp\scripts", "--db", "SqlServer2", "db connection string 2" };
-            CmdLineArgs result;
-            bool parsed = CmdLineArgs.TryParse(args, out result);
-
-            Assert.IsFalse(parsed, "parsed");
-            Assert.IsNull(result, "result");
+            CmdLineArgs.Parse(args);
         }
 
-        [Test]
-        public void TryParse_DoubleScripts()
+        [Test, ExpectedException]
+        public void Parse_DoubleScripts()
         {
             string[] args = new[] { "deploy", "--destination", "001", "--db", "SqlServer", "db connection string", "--scripts", @"C:\Temp\scripts", "--scripts", @"C:\Temp\scripts2" };
-            CmdLineArgs result;
-            bool parsed = CmdLineArgs.TryParse(args, out result);
-
-            Assert.IsFalse(parsed, "parsed");
-            Assert.IsNull(result, "result");
+            CmdLineArgs.Parse(args);
         }
     }
 }
