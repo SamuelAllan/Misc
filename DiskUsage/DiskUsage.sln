@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiskUsage", "DiskUsage\DiskUsage.csproj", "{2BC5E66A-7B9F-490E-980D-94C00094FFC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiskUsage.Tests", "DiskUsage.Tests\DiskUsage.Tests.csproj", "{E379EDCC-F76C-47B0-AA10-8AE5BD851DE6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2BC5E66A-7B9F-490E-980D-94C00094FFC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BC5E66A-7B9F-490E-980D-94C00094FFC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BC5E66A-7B9F-490E-980D-94C00094FFC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BC5E66A-7B9F-490E-980D-94C00094FFC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E379EDCC-F76C-47B0-AA10-8AE5BD851DE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E379EDCC-F76C-47B0-AA10-8AE5BD851DE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E379EDCC-F76C-47B0-AA10-8AE5BD851DE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E379EDCC-F76C-47B0-AA10-8AE5BD851DE6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

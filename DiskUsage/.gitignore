@@ -1,0 +1,8 @@
+DiskUsage/bin
+DiskUsage/obj
+DiskUsage/DiskUsage.csproj.user
+DiskUsage.Tests/bin
+DiskUsage.Tests/obj
+DiskUsage.Tests/DiskUsage.Tests.csproj.user
+DiskUsage.suo
+DiskUsage.v12.suo
