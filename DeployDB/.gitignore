@@ -4,5 +4,7 @@ DeployDB.csproj.user
 DeployDB.Tests/bin
 DeployDB.Tests/obj
 DeployDB.Tests/DeployDB.Tests.csproj.user
+packages
+DeployDB.sln.DotSettings.user
 DeployDB.suo
 DeployDB.v12.suo
