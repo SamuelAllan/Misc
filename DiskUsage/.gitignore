@@ -4,5 +4,6 @@ DiskUsage/DiskUsage.csproj.user
 DiskUsage.Tests/bin
 DiskUsage.Tests/obj
 DiskUsage.Tests/DiskUsage.Tests.csproj.user
+packages
 DiskUsage.suo
 DiskUsage.v12.suo
